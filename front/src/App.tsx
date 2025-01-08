@@ -15,14 +15,17 @@ const App: React.FC = () => {
 
   const addTodo = async (newTodo: TodoItem) => {
     try {
-      const response = await fetch("http://localhost:5000/api/v1/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: newTodo.title,
-          completed: false,
-        }),
-      });
+      const response = await fetch(
+        "https://todo-app-o2sf.onrender.com/api/v1/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: newTodo.title,
+            completed: false,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -42,10 +45,13 @@ const App: React.FC = () => {
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/api/v1/${itemId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        `https://todo-app-o2sf.onrender.com/api/v1/${itemId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -65,9 +71,12 @@ const App: React.FC = () => {
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/api/v1/${itemId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://todo-app-o2sf.onrender.com/api/v1/${itemId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -83,7 +92,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/")
+    fetch("https://todo-app-o2sf.onrender.com/api/v1/")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
