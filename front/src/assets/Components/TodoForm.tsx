@@ -1,26 +1,17 @@
 import React, { useState } from "react";
 
-interface AddTodoFormProps {
-  addTodo: (newTodo: TodoItem) => void;
+interface TodoFormProps {
+  addTodo: (todoData: { title: string }) => void;
 }
 
-interface TodoItem {
-  id: number;
-  title: string;
-  complete: boolean;
-}
-
-const TodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
+const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   const [taskText, setTaskText] = useState<string>("");
 
   function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (taskText.trim())
-      addTodo({
-        id: Date.now(),
-        title: taskText,
-        complete: false,
-      });
+    if (taskText.trim()) {
+      addTodo({ title: taskText });
+    }
     setTaskText("");
   }
 

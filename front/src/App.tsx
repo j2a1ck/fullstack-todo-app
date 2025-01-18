@@ -4,7 +4,7 @@ import Navbar from "./assets/Components/Navbar";
 import Home from "./assets/pages/home";
 import About from "./assets/pages/about";
 
-interface TodoItem {
+export interface TodoItem {
   _id: string;
   title: string;
   completed: boolean;
@@ -13,7 +13,7 @@ interface TodoItem {
 const App: React.FC = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
 
-  const addTodo = async (newTodo: TodoItem) => {
+  const addTodo = async (todoData: { title: string }) => {
     try {
       const response = await fetch(
         "https://todo-app-o2sf.onrender.com/api/v1/",
@@ -21,7 +21,7 @@ const App: React.FC = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            title: newTodo.title,
+            title: todoData.title,
             completed: false,
           }),
         }

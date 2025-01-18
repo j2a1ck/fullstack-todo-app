@@ -1,17 +1,11 @@
-// @ts-nocheck
 import React from "react";
 import TodoForm from "../Components/TodoForm";
 import Todo from "../Components/Todo";
-
-interface TodoItem {
-  _id: string;
-  title: string;
-  complete: boolean;
-}
+import { TodoItem } from "../../App";
 
 interface HomeProps {
   todos: TodoItem[];
-  addTodo: (newTodo: TodoItem) => void;
+  addTodo: (todoData: { title: string }) => void;
   toggleTodo: (id: string) => void;
   deleteTodo: (id: string) => void;
 }
