@@ -16,8 +16,7 @@ const Home: React.FC<HomeProps> = ({
   toggleTodo,
   deleteTodo,
 }) => (
-  <div>
-    <h1 className="oswald title">Your Task</h1>
+  <div className="flex-container">
     <TodoForm addTodo={addTodo} />
     {todos.map((todoItem, index) => (
       <Todo

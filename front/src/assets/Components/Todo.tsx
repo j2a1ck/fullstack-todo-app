@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSquareCheck,
   faCircleCheck,
-  faTrashAlt,
 } from "@fortawesome/free-regular-svg-icons";
 
 interface TodoProps {
@@ -29,7 +28,7 @@ const Todo: React.FC<TodoProps> = ({ task, toggleTodo, deleteTodo }) => {
       </div>
       <label className={task.completed ? "completed" : ""}>{task.title}</label>
       <div className="trashIcon" onClick={() => deleteTodo(task._id)}>
-        <FontAwesomeIcon icon={faTrashAlt} />
+        <span>✖</span>
       </div>
     </div>
   );

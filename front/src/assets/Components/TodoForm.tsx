@@ -16,15 +16,25 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   }
 
   return (
-    <div>
-      <form className="box" onSubmit={handleFormSubmit}>
-        <input
-          id="IDK"
-          value={taskText}
-          onChange={(event) => setTaskText(event.target.value)}
-          placeholder="what is next? "
-        ></input>
-        <button type="submit">add</button>
+    <div className="container">
+      <form className="" onSubmit={handleFormSubmit}>
+        <h1 className="oswald title">Your To Do</h1>
+        <div>
+          <div className="row-button">
+            <div>
+              <input
+                id="IDK"
+                value={taskText}
+                onChange={(event) => setTaskText(event.target.value)}
+                placeholder="Add new task"
+              ></input>
+              <div className="line"></div>
+            </div>
+            <button type="submit">
+              <img src="http://www.w3.org/2000/svg" className="button-image" />
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );
