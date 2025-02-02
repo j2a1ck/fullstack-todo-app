@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaPlus } from "react-icons/fa6";
 
 interface TodoFormProps {
   addTodo: (todoData: { title: string }) => void;
@@ -23,7 +24,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
           <div className="row-button">
             <div>
               <input
-                id="IDK"
+                id="todo-input"
                 value={taskText}
                 onChange={(event) => setTaskText(event.target.value)}
                 placeholder="Add new task"
@@ -31,7 +32,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
               <div className="line"></div>
             </div>
             <button type="submit">
-              <img src="http://www.w3.org/2000/svg" className="button-image" />
+              <FaPlus className="plus-icon" />
             </button>
           </div>
         </div>
