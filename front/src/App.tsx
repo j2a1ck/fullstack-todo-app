@@ -9,21 +9,20 @@ export interface TodoItem {
 }
 
 const App: React.FC = () => {
+  const apiUrl = import.meta.env.VITE_URL;
+
   const [todos, setTodos] = useState<TodoItem[]>([]);
 
   const addTodo = async (todoData: { title: string }) => {
     try {
-      const response = await fetch(
-        "https://todo-app-o2sf.onrender.com/api/v1/",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            title: todoData.title,
-            completed: false,
-          }),
-        }
-      );
+      const response = await fetch(`${apiUrl}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: todoData.title,
+          completed: false,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -43,13 +42,10 @@ const App: React.FC = () => {
         return;
       }
 
-      const response = await fetch(
-        `https://todo-app-o2sf.onrender.com/api/v1/${itemId}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch(`${apiUrl}/${itemId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -69,12 +65,9 @@ const App: React.FC = () => {
         return;
       }
 
-      const response = await fetch(
-        `https://todo-app-o2sf.onrender.com/api/v1/${itemId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${apiUrl}/${itemId}`, {
+        method: "DELETE",
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -90,10 +83,9 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch("https://todo-app-o2sf.onrender.com/api/v1/")
+    fetch(`${apiUrl}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setTodos(data);
       });
   }, []);
