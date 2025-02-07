@@ -3,14 +3,26 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import userControllers from "./controllers/userControllers.js";
 import cors from "cors";
+import { rateLimit } from "express-rate-limit";
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors());
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 20,
+  message: "Too many requests from this IP, please try again after a minute.",
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
+// Middleware
+app.use(cors());
 app.use(express.json());
+app.use(limiter);
+
+// Routes
 app.use("/api/v1/", userControllers);
 
 const server = app
