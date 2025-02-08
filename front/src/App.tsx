@@ -10,7 +10,9 @@ export interface TodoItem {
 
 const App: React.FC = () => {
   const apiUrl = import.meta.env.VITE_URL;
-
+  if(!import.meta.env.VITE_URL){
+    throw new Error("Your VITE_URL from env is missing please add to .env")
+  }
   const [todos, setTodos] = useState<TodoItem[]>([]);
 
   const addTodo = async (todoData: { title: string }) => {

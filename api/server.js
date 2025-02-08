@@ -8,6 +8,9 @@ import { rateLimit } from "express-rate-limit";
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
+if (!process.env.PORT){
+  throw new Error("PORT in .env is missing please add")
+}
 
 const limiter = rateLimit({
   windowMs: 60 * 1000,
