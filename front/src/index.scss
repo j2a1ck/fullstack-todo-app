@@ -16,7 +16,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  width: 420px;
+  width: 400px;
 }
 .oswald {
   font-family: $oswald-font;
@@ -123,8 +123,9 @@ body {
 @media only screen and (max-width: 768px) {
   .container .title {
     font-size: 45px;
-    width: 100%;
-    max-width: 100vk;
+  }
+  .flex-container{
+    width: 380px;
   }
   #todo-input {
     width: 300px;
