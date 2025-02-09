@@ -123,6 +123,8 @@ body {
 @media only screen and (max-width: 768px) {
   .container .title {
     font-size: 45px;
+    width: 100%;
+    max-width: 100vk;
   }
   #todo-input {
     width: 300px;
