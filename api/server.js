@@ -5,12 +5,16 @@ import userControllers from "./controllers/userControllers.js";
 import cors from "cors";
 import { rateLimit } from "express-rate-limit";
 
-dotenv.config();
+dotenv.config()
+
+// Validate environment variables
+if (!process.env.PORT || !process.env.MONGODB_URI) {
+  throw new Error("Required environment variables are missing");
+}
+
 const app = express();
 const port = process.env.PORT;
-if (!process.env.PORT){
-  throw new Error("PORT in .env is missing please add")
-}
+console.log(port)
 
 const limiter = rateLimit({
   windowMs: 60 * 1000,

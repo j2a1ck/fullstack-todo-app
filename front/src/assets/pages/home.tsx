@@ -2,6 +2,7 @@ import React from "react";
 import TodoForm from "../Components/TodoForm";
 import Todo from "../Components/Todo";
 import { TodoItem } from "../../App";
+import Login from "../Components/login"
 
 interface HomeProps {
   todos: TodoItem[];
@@ -16,6 +17,8 @@ const Home: React.FC<HomeProps> = ({
   toggleTodo,
   deleteTodo,
 }) => (
+  <div>
+  <Login/>
   <div className="flex-container">
     <TodoForm addTodo={addTodo} />
     {todos.map((todoItem, index) => (
@@ -26,6 +29,7 @@ const Home: React.FC<HomeProps> = ({
         deleteTodo={deleteTodo}
       />
     ))}
+  </div>
   </div>
 );
 
