@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
 
-
-
 export const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URL);
-    if (!process.env.MONGODB_URL) {
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
+    if (!process.env.MONGODB_URI) {
       throw new Error("missing MONGODB_URL in env please add")
     }
     console.log(`mongoose connected to ${conn.connection.host}`);
