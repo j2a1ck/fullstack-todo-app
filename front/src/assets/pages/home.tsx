@@ -2,7 +2,6 @@ import React from "react";
 import TodoForm from "../Components/TodoForm";
 import Todo from "../Components/Todo";
 import { TodoItem } from "../../App";
-import Login from "../Components/login"
 
 interface HomeProps {
   todos: TodoItem[];
@@ -18,18 +17,17 @@ const Home: React.FC<HomeProps> = ({
   deleteTodo,
 }) => (
   <div>
-  <Login/>
-  <div className="flex-container">
-    <TodoForm addTodo={addTodo} />
-    {todos.map((todoItem, index) => (
-      <Todo
-        key={index}
-        task={todoItem}
-        toggleTodo={toggleTodo}
-        deleteTodo={deleteTodo}
-      />
-    ))}
-  </div>
+    <div className="flex-container">
+      <TodoForm addTodo={addTodo} />
+      {todos.map((todoItem, index) => (
+        <Todo
+          key={index}
+          task={todoItem}
+          toggleTodo={toggleTodo}
+          deleteTodo={deleteTodo}
+        />
+      ))}
+    </div>
   </div>
 );
 

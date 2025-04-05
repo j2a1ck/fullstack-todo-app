@@ -1,9 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
+import taskControllers from "./controllers/taskControllers.js";
 import userControllers from "./controllers/userControllers.js";
 import cors from "cors";
 import { rateLimit } from "express-rate-limit";
+import jwt from "jsonwebtoken";
 
 dotenv.config()
 
@@ -27,10 +29,20 @@ const limiter = rateLimit({
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(limiter);
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1]
+  if (!token) return res.status(401).json({ error: "Unauthorized" })
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
+    if (err) return res.status(401).json({ error: "Invalid token" })
+    req.user = decode;
+    next();
+  })
+}
 
 // Routes
-app.use("/api/v1/", userControllers);
+app.use("/api/v1/users", userControllers);
+app.use("/api/v1/tasks", verifyToken, taskControllers);
 
 const server = app
   .listen(port, () => {

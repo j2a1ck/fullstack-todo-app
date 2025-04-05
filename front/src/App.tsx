@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./assets/pages/home";
+import Auth from "./assets/pages/login";
 
 export interface TodoItem {
   _id: string;
@@ -9,9 +10,10 @@ export interface TodoItem {
 }
 
 const App: React.FC = () => {
-  const apiUrl = import.meta.env.VITE_URL;
-  if(!import.meta.env.VITE_URL){
-    throw new Error("Your VITE_URL from env is missing please add to .env")
+  const apiUrl = import.meta.env.VITE_URL + "/tasks";
+
+  if (!import.meta.env.VITE_URL) {
+    throw new Error("Your VITE_URL from env is missing please add to .env");
   }
   const [todos, setTodos] = useState<TodoItem[]>([]);
 
@@ -106,6 +108,7 @@ const App: React.FC = () => {
             />
           }
         />
+        <Route path="/login" element={<Auth />} />
       </Routes>
     </Router>
   );
