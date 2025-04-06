@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $background-color: #ffffff;
 $oswald-font: "Oswald", sans-serif;
 $title-color: #4f4f4f;
@@ -199,15 +201,15 @@ body {
     background-color: $button-background;
 
     &:hover {
-      background-color: darken($button-background, 10%);
+      background-color: color.adjust($button-background, $lightness: -10%);
     }
   }
 
   .btn-secondary {
-    background-color: lighten($button-background, 15%);
+    background-color: color.adjust($button-background, $lightness: 15%);
 
     &:hover {
-      background-color: lighten($button-background, 5%);
+      background-color: color.adjust($button-background, $lightness: 5%);
     }
   }
 
