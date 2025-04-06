@@ -33,7 +33,7 @@ userControllers.post("/login", async (req, res) => {
 
         res.json({ token })
     } catch (err) {
-        res.status(500).json({ error: "error logging in" })
+        res.status(500).json({ error: "error message", err })
     }
 })
 

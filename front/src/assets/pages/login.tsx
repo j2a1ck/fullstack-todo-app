@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Auth = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [registerSuccess, setRegisterSuccess] = useState(false);
@@ -59,20 +62,29 @@ const Auth = () => {
       const loginData = await responseLogin.json();
 
       if (responseLogin.ok) {
-        console.log("login successful:", loginData);
+        console.log("Login successful:", loginData);
         if (loginData.token) {
           localStorage.setItem("authToken", loginData.token);
+          setLoginSuccess(true);
+          setUsername("");
+          setPassword("");
+          setTimeout(() => navigate("/"), 1000);
         }
-        setLoginSuccess(true);
-        setUsername("");
-        setPassword("");
       } else {
-        console.log("login fail:", loginData.message || loginData);
+        console.error("Login failed:", loginData.message || loginData);
+        alert("Login failed: " + (loginData.message || "Invalid credentials"));
       }
     } catch (err) {
-      console.log("error message:", err);
+      console.error("Error during login:", err);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      console.log("User already has auth token");
+    }
+  }, []);
 
   return (
     <div className="login-container">
