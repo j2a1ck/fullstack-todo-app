@@ -90,16 +90,15 @@ const Auth = () => {
     <div className="login-container">
       <form className="card">
         <div className="form-group">
-          {registerSuccess && <span>you are signup successful</span>}
-          {loginSuccess && <span>you are login successful</span>}
-
+          {registerSuccess && <span>Signup successful</span>}
+          {loginSuccess && <span>Login successful</span>}
           <label htmlFor="username">username</label>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             id="username"
             className="login-input"
-            type="username"
+            type="text"
             placeholder="Enter your email"
             required
           />
