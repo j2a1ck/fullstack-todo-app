@@ -16,16 +16,18 @@ const Home: React.FC<HomeProps> = ({
   toggleTodo,
   deleteTodo,
 }) => (
-  <div className="flex-container">
-    <TodoForm addTodo={addTodo} />
-    {todos.map((todoItem, index) => (
-      <Todo
-        key={index}
-        task={todoItem}
-        toggleTodo={toggleTodo}
-        deleteTodo={deleteTodo}
-      />
-    ))}
+  <div>
+    <div className="flex-container">
+      <TodoForm addTodo={addTodo} />
+      {todos.map((todoItem, index) => (
+        <Todo
+          key={index}
+          task={todoItem}
+          toggleTodo={toggleTodo}
+          deleteTodo={deleteTodo}
+        />
+      ))}
+    </div>
   </div>
 );
 

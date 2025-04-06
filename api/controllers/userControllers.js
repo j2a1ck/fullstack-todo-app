@@ -1,94 +1,40 @@
 import express from "express";
-import mongoose from "mongoose";
-import { tasks } from "../models/tasks.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs"
+import User from "../models/user.js";
 
-const router = express.Router();
+const userControllers = express.Router();
 
-router.post("/", async (req, res) => {
-  try {
-    const newTodo = await tasks.create({
-      title: req.body.title,
-      completed: false,
-    });
-    res.status(201).json(newTodo);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const updatedTask = await tasks.findByIdAndUpdate(
-      id,
-      {
-        title: req.body.title,
-        completed: req.body.completed,
-      },
-      { new: true }
-    );
-    if (!updatedTask) {
-      return res.status(404).json({ message: "Task not found" });
+userControllers.post("/register", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new User({ username, password: hashedPassword });
+        await user.save();
+        res.json({ message: "user registered" })
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    res.status(200).json(updatedTask);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
+})
 
-router.patch("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid ID format" });
+userControllers.post("/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ username })
+        if (!user) return res.status(400).json({ error: "user not found" })
+
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
+
+        // jwt
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+            expiresIn: "1h",
+        })
+
+        res.json({ token })
+    } catch (err) {
+        res.status(500).json({ error: "error message", err })
     }
+})
 
-    const task = await tasks.findById(id);
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
-
-    const updatedTask = await tasks.findByIdAndUpdate(
-      id,
-      { completed: !task.completed },
-      { new: true }
-    );
-
-    res.status(200).json(updatedTask);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid ID format" });
-    }
-
-    const deletedTask = await tasks.findByIdAndDelete(id);
-    if (!deletedTask) {
-      return res.status(404).json({ message: "Task not found" });
-    }
-    res.status(200).json(deletedTask);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    const getAllTasks = await tasks.find({});
-    res.status(200).json(getAllTasks);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-export default router;
+export default userControllers
