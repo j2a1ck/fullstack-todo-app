@@ -99,7 +99,7 @@ const Auth = () => {
             onChange={(e) => setUsername(e.target.value)}
             id="username"
             className="login-input"
-            type="username"
+            type="text"
             placeholder="Enter your email"
             required
           />
