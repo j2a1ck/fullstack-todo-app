@@ -9,7 +9,7 @@ const Navigation: React.FC = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/login">About</Link>
+          <Link to="/login">login</Link>
         </li>
       </ul>
     </nav>
