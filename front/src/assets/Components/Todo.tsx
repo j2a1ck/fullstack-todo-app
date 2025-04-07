@@ -6,6 +6,7 @@ interface TodoProps {
   task: TodoItem;
   toggleTodo: (id: string) => void;
   deleteTodo: (id: string) => void;
+  getTodos: () => void;
 }
 
 interface TodoItem {

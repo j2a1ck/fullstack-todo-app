@@ -98,17 +98,13 @@ const App: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    getTodos();
-  }, []);
-
   const getTodos = async () => {
     try {
       const response = await fetch(apiUrl, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token || ""}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -136,6 +132,7 @@ const App: React.FC = () => {
                 addTodo={addTodo}
                 toggleTodo={toggleTodo}
                 deleteTodo={deleteTodo}
+                getTodos={getTodos}
               />
             }
           />
