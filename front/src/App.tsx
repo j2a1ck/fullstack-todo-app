@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./assets/pages/home";
 import Auth from "./assets/pages/login";
-import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ProtectedRoute } from "./assets/Components/ProtectedRoute";
 export interface TodoItem {
   _id: string;
   title: string;
