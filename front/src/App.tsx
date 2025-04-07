@@ -10,6 +10,9 @@ export interface TodoItem {
 }
 
 const App: React.FC = () => {
+  const token = localStorage.getItem("authToken");
+  console.log("Fetching todos with token:", !!token);
+
   const apiUrl = import.meta.env.VITE_URL + "/tasks";
 
   if (!import.meta.env.VITE_URL) {
@@ -21,7 +24,10 @@ const App: React.FC = () => {
     try {
       const response = await fetch(`${apiUrl}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token || ""}`,
+        },
         body: JSON.stringify({
           title: todoData.title,
           completed: false,
@@ -50,6 +56,7 @@ const App: React.FC = () => {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token || ""}`,
         },
       });
 
@@ -73,6 +80,9 @@ const App: React.FC = () => {
 
       const response = await fetch(`${apiUrl}/${itemId}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token || ""}`,
+        },
       });
 
       if (!response.ok) {
@@ -94,9 +104,6 @@ const App: React.FC = () => {
 
   const getTodos = async () => {
     try {
-      const token = localStorage.getItem("authToken");
-      console.log("Fetching todos with token:", !!token);
-
       const response = await fetch(apiUrl, {
         method: "GET",
         headers: {
