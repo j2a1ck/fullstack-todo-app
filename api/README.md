@@ -20,7 +20,7 @@ First, make sure you have Node.js and npm and pnpm installed.
 3. **Navigate to the project directory:**
 
     ```bash
-    cd front
+    cd api
     ```
 1. **install dependency**
     ```bash
