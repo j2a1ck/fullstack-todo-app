@@ -20,13 +20,13 @@ First, make sure you have Node.js and npm installed. You can download and instal
 2. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/j2a1ck/React-Todo-App.git
+    git https://github.com/j2a1ck/fullstack-todo-app.git
     ```
 
 3. **Navigate to the project directory:**
 
     ```bash
-    cd REACT-TODO-APP
+    cd front
     ```
 
 4. **Install dependencies:**
