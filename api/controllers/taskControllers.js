@@ -9,6 +9,7 @@ router.post("/", async (req, res) => {
     const newTodo = await tasks.create({
       title: req.body.title,
       completed: false,
+      userId: req.user.id,
     });
     res.status(201).json(newTodo);
   } catch (error) {
@@ -21,7 +22,7 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const updatedTask = await tasks.findByIdAndUpdate(
-      id,
+      { _id: id, userId: req.user.id },
       {
         title: req.body.title,
         completed: req.body.completed,
@@ -45,7 +46,7 @@ router.patch("/:id", async (req, res) => {
       return res.status(400).json({ message: "Invalid ID format" });
     }
 
-    const task = await tasks.findById(id);
+    const task = await tasks.findById({ _id: id, userId: req.user.id });
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
     }
@@ -70,7 +71,7 @@ router.delete("/:id", async (req, res) => {
       return res.status(400).json({ message: "Invalid ID format" });
     }
 
-    const deletedTask = await tasks.findByIdAndDelete(id);
+    const deletedTask = await tasks.findByIdAndDelete({ _id: id, userId: req.user.id });
     if (!deletedTask) {
       return res.status(404).json({ message: "Task not found" });
     }
@@ -82,8 +83,10 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+
   try {
-    const getAllTasks = await tasks.find({});
+    const userId = req.user.id
+    const getAllTasks = await tasks.find({ userId });
     res.status(200).json(getAllTasks);
   } catch (error) {
     console.error(error);
