@@ -92,7 +92,7 @@ const Auth = () => {
         <div className="form-group">
           {registerSuccess && <span>Signup successful</span>}
           {loginSuccess && <span>Login successful</span>}
-          <label htmlFor="username">username</label>
+          <label htmlFor="username">Email</label>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
